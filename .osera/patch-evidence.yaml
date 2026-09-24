@@ -1,17 +1,22 @@
 schema: osera-patch-evidence/0.1.0
 producer: moderne
-release: 5.7.14.1-osera-00001
+release: 5.7.14.1-osera-00002
 baseline: v5.7.14+patch.baseline
 fixes:
   - cve: CVE-2026-22732
     upstream: https://nvd.nist.gov/vuln/detail/CVE-2026-22732
     artifacts:
       - org.springframework.security:spring-security-web
-    note: New in this release; ported onto 5.7.14; fixed at 5.7.14.1-backpatch-00001 (backpatch-spring-security@5ebff93).
+    note: Carried from 5.7.14.1-backpatch-00001; ported onto 5.7.14; fixed at 5.7.14.1-backpatch-00001 (backpatch-spring-security@5ebff93).
+  - cve: CVE-2026-47838
+    upstream: https://nvd.nist.gov/vuln/detail/CVE-2026-47838
+    artifacts:
+      - org.springframework.security:spring-security-web
+    note: New in this release; ported onto 5.7.14; fixed at 5.7.14.1-backpatch-00002 (backpatch-spring-security@377a7e4..75ef229).
 tests:
-  commit: 054e414591fb72dc6317daa882daa41aa5bc8aa5
-  command: ./gradlew --quiet -I init-backpatch.gradle -Dbackpatch.version=5.7.14.1-osera-00001 -Dbackpatch.repository.url=file:///tmp/osera-unused-repo -Dbackpatch.compile.jdk=11 -p web test --rerun-tasks --tests org.springframework.security.web.util.OnCommittedResponseWrapperContentLengthHeaderTests
+  commit: d1d84851577ced50adf0688bc345400f44c91991
+  command: ./gradlew --quiet --no-daemon -I init-backpatch.gradle -Dbackpatch.version=5.7.14.1-osera-00002 -Dbackpatch.repository.url=file:///tmp/osera-unused-repo -Dbackpatch.compile.jdk=11 -p web test --rerun-tasks --tests org.springframework.security.web.authentication.preauth.x509.SubjectDnX509PrincipalExtractorTests --tests org.springframework.security.web.authentication.preauth.x509.SubjectX500PrincipalExtractorTests --tests org.springframework.security.web.authentication.preauth.x509.X509AuthenticationFilterTests
   runtime: OpenJDK 11.0.23 (Temurin), Gradle wrapper of the repository
-  report: spring-security-web-5.7.14.1-osera-00001-tests.zip
+  report: spring-security-web-5.7.14.1-osera-00002-tests.zip
   result: pass
-  note: the regression tests the fix commits touched, 3 test(s) run, 0 failed, at the tested commit
+  note: the regression tests the fix commits touched, 22 test(s) run, 0 failed, at the tested commit
